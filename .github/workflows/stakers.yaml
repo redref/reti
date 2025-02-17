@@ -1,0 +1,42 @@
+name: "stakers"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "1 0 * * *" # daily at midnigh
+
+permissions:
+  contents: read
+
+jobs:
+  stakers:
+    name: Get Stakers info for validator
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        goos: [linux]
+        goarch: [amd64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wangyoucao577/go-release-action@v1
+        with:
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          ldflags: "-X main.Version=${{ github.ref_name }}"
+          extra_files: LICENSE README.md
+          goversion: '1.23'
+          project_path: './nodemgr'
+          upload: false
+      - run: |
+          tar xvzf nodemgr/reti-main-linux-amd64.tar.gz
+          ./reti --validator 45 --node 1 v exportAllStakers
+          ls
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stakers.45.csv
+          path: stakers.csv
+          overwrite: true
+          retention-days: 90
