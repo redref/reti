@@ -1,6 +1,6 @@
 module github.com/algorandfoundation/reti
 
-go 1.23
+go 1.23.2
 
 require (
 	github.com/algorand/go-algorand-sdk/v2 v2.7.0

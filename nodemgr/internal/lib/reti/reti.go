@@ -110,10 +110,10 @@ func (r *Reti) LoadState(ctx context.Context) error {
 			return fmt.Errorf("unable to GetValidatorConfig: %w", err)
 		}
 		// verify this validator is one we have either owner or manager keys for !!
-		_, err = r.signer.FindFirstSigner([]string{config.Owner, config.Manager})
-		if err != nil {
-			return fmt.Errorf("neither owner or manager address for validator id:%d has local keys present", r.ValidatorId)
-		}
+		//_, err = r.signer.FindFirstSigner([]string{config.Owner, config.Manager})
+		//if err != nil {
+		//	return fmt.Errorf("neither owner or manager address for validator id:%d has local keys present", r.ValidatorId)
+		//}
 		constraints, err := r.GetProtocolConstraints()
 		if err != nil {
 			return fmt.Errorf("unable to GetProtocolConstraints: %w", err)

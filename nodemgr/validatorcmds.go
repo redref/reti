@@ -335,10 +335,10 @@ func exportAllStakers(ctx context.Context, command *cli.Command) error {
 	if App.retiClient.RetiAppId == 0 {
 		return fmt.Errorf("validator not configured")
 	}
-	numVs, err := App.retiClient.GetNumValidators()
-	if err != nil {
-		return err
-	}
+	//numVs, err := App.retiClient.GetNumValidators()
+	//if err != nil {
+	//	return err
+	//}
 	type StakerInfo struct {
 		Account  string  `json:"account"`
 		Stake    float64 `json:"stake"`
@@ -346,7 +346,7 @@ func exportAllStakers(ctx context.Context, command *cli.Command) error {
 	}
 	var stakers = map[string]StakerInfo{}
 
-	for valID := 1; valID <= int(numVs); valID++ {
+	for valID := 45; valID <= 45; valID++ {
 		pools, err := App.retiClient.GetValidatorPools(uint64(valID))
 		if err != nil {
 			return fmt.Errorf("error getting validator pools %d: %w", valID, err)
