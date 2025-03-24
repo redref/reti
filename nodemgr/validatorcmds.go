@@ -346,12 +346,13 @@ func exportAllStakers(ctx context.Context, command *cli.Command) error {
 	}
 	var stakers = map[string]StakerInfo{}
 
-	for valID := 45; valID <= 45; valID++ {
+	for valID := 31; valID <= 31; valID++ {
 		pools, err := App.retiClient.GetValidatorPools(uint64(valID))
 		if err != nil {
 			return fmt.Errorf("error getting validator pools %d: %w", valID, err)
 		}
 		for _, pool := range pools {
+			misc.Infof(App.logger, "Pool %s", pool)
 			ledger, err := App.retiClient.GetLedgerForPool(pool.PoolAppId)
 			if err != nil {
 				if strings.Contains(err.Error(), "box not found") {
